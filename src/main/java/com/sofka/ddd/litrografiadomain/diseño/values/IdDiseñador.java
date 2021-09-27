@@ -1,4 +1,6 @@
 package com.sofka.ddd.litrografiadomain.diseño.values;
 
-public class IdDiseñador {
+import co.com.sofka.domain.generic.Identity;
+
+public class IdDiseñador extends Identity {
 }
