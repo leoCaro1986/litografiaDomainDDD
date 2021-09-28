@@ -1,12 +1,12 @@
 package com.sofka.ddd.litrografiadomain.diseño;
 
 import co.com.sofka.domain.generic.AggregateEvent;
-import com.sofka.ddd.litrografiadomain.diseño.events.ClienteAsociado;
-import com.sofka.ddd.litrografiadomain.diseño.events.DiseñoCreado;
-import com.sofka.ddd.litrografiadomain.diseño.events.EstadoAsignado;
+import co.com.sofka.domain.generic.DomainEvent;
+import com.sofka.ddd.litrografiadomain.diseño.events.*;
 import com.sofka.ddd.litrografiadomain.diseño.values.*;
 import com.sofka.ddd.litrografiadomain.produccion.values.IdProduccion;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -18,6 +18,7 @@ public class Diseño extends AggregateEvent<IdDiseño> {
     protected Set<Cliente> clientes;
     protected IdProduccion idProduccion;
     protected IdCliente idCliente;
+    protected IdDiseñador idDiseñador;
 
 
     public Diseño(IdDiseño entityId, Especificaciones especificaciones){
@@ -25,10 +26,22 @@ public class Diseño extends AggregateEvent<IdDiseño> {
         appendChange(new DiseñoCreado(especificaciones)).apply();
     }
 
-    public void asignarEstadoDeDiseño(IdDiseñador entityId, Especificaciones informacionDiseño){
+    private Diseño(IdDiseño entityId){
+        super(entityId);
+        subscribe(new DiseñoChange(this));
+    }
+
+    public  static Diseño from(IdDiseño idDiseño, List<DomainEvent> events){
+        var diseño = new Diseño(idDiseño);
+        events.forEach(diseño::applyEvent);
+        return diseño;
+    }
+
+
+    public void asignarEstadoDeDiseño(IdDiseñador entityId, Especificaciones especificaciones){
         Objects.requireNonNull(entityId);
-        Objects.requireNonNull(informacionDiseño);
-        appendChange(new EstadoAsignado(entityId, informacionDiseño)).apply();
+        Objects.requireNonNull(especificaciones);
+        appendChange(new EstadoAsignado(entityId, especificaciones)).apply();
     }
     public void asociarCliente(IdCliente idCliente, InformacionCliente informacionCliente){
         Objects.requireNonNull(idCliente);
@@ -39,8 +52,8 @@ public class Diseño extends AggregateEvent<IdDiseño> {
         appendChange(new EspecificacionesCambiadas(especificaciones)).apply();
     }
 
-    public  void actualizarInformacionDiseño (IdDiseñador entityId, InformacionDiseño informacionDiseño){
-        appendChange(new InformacionDiseñoActualizado(entityId, informacionDiseño)).apply();
+    public  void actualizarInformacionDiseño (IdDiseñador idDiseñador, InformacionDiseño informacionDiseño){
+        appendChange(new InformacionDiseñoActualizado(idDiseñador, informacionDiseño)).apply();
     }
 
     public Especificaciones getEspecificaciones() {

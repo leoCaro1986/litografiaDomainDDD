@@ -20,6 +20,7 @@ public class ClienteAsociado extends DomainEvent {
     }
 
     public InformacionCliente getInformacionCliente() {
+
         return informacionCliente;
     }
 }
