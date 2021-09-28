@@ -1,4 +1,6 @@
 package com.sofka.ddd.litrografiadomain.bodega.values;
 
-public class IdInventario {
+import co.com.sofka.domain.generic.Identity;
+
+public class IdInventario extends Identity {
 }

@@ -1,4 +1,10 @@
 package com.sofka.ddd.litrografiadomain.produccion.values;
 
-public class InformacionMaquina {
+import co.com.sofka.domain.generic.ValueObject;
+
+public class InformacionMaquina implements ValueObject<String> {
+    @Override
+    public String value() {
+        return null;
+    }
 }

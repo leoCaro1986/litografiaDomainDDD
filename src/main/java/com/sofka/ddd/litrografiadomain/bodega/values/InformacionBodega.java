@@ -1,4 +1,10 @@
 package com.sofka.ddd.litrografiadomain.bodega.values;
 
-public class InformacionBodega {
+import co.com.sofka.domain.generic.ValueObject;
+
+public class InformacionBodega implements ValueObject<String> {
+    @Override
+    public String value() {
+        return null;
+    }
 }

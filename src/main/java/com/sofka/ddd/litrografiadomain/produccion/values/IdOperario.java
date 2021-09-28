@@ -1,4 +1,6 @@
 package com.sofka.ddd.litrografiadomain.produccion.values;
 
-public class IdOperario {
+import co.com.sofka.domain.generic.Identity;
+
+public class IdOperario extends Identity {
 }
