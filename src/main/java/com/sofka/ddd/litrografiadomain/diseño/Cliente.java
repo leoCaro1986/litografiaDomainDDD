@@ -22,6 +22,7 @@ public class Cliente extends Entity<IdCliente> {
     }
 
     public InformacionDiseño informacionDiseño() {
+
         return informacionDiseño;
     }
 }

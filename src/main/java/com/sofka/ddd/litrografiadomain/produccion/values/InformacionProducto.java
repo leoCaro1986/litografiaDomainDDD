@@ -2,9 +2,9 @@ package com.sofka.ddd.litrografiadomain.produccion.values;
 
 import co.com.sofka.domain.generic.ValueObject;
 
-public class Velocidad implements ValueObject<Integer> {
+public class InformacionProducto implements ValueObject<String> {
     @Override
-    public Integer value() {
+    public String value() {
         return null;
     }
 }
