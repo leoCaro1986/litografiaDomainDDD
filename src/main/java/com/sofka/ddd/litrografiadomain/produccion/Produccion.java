@@ -1,12 +1,14 @@
 package com.sofka.ddd.litrografiadomain.produccion;
 
 import co.com.sofka.domain.generic.AggregateEvent;
+import co.com.sofka.domain.generic.DomainEvent;
 import com.sofka.ddd.litrografiadomain.produccion.events.MaquinaAsociada;
 import com.sofka.ddd.litrografiadomain.produccion.events.ProduccionCreada;
 import com.sofka.ddd.litrografiadomain.produccion.events.ProductoCambiado;
 import com.sofka.ddd.litrografiadomain.produccion.events.ProductosActualizados;
 import com.sofka.ddd.litrografiadomain.produccion.values.*;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -26,6 +28,12 @@ public class Produccion extends AggregateEvent<IdProduccion> {
     private Produccion(IdProduccion entityId){
         super(entityId);
         subscribe(new ProduccionChange(this));
+    }
+
+    public  static Produccion from(IdProduccion idProduccion, List<DomainEvent> events){
+        var produccion = new Produccion(idProduccion);
+        events.forEach(produccion::applyEvent);
+        return produccion;
     }
 
     public void actualizarProducto(IdOperario idOperario, InformacionProducto informacionProducto){
